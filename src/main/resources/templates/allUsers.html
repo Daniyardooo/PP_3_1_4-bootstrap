@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="30" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+            </a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li th:text="${user.username}"></li>
+            </ul>
+
+
+            <form th:action="@{/logout}" method="post">
+                <div class="text-end">
+                    <button type="submit" class="btn btn-outline-light me-2">Выход</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</header>
+<body>
+
+<div class="d-flex"> <!-- Parent container for Sidebar and UserTable -->
+    <!--Sidebar-->
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height: 100vh;">
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#home"></use>
+                    </svg>
+                    Admin
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link link-dark">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#speedometer2"></use>
+                    </svg>
+                    User
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!--Вкладки Всеюзеры/Новый юзер тут-->
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" id="myTabContent" style="flex-grow: 1;">
+        <h1>Admin panel</h1>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+                        role="tab" aria-controls="home" aria-selected="true">Users table
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
+                        role="tab" aria-controls="profile" aria-selected="false">New user
+                </button>
+            </li>
+        </ul>
+        <!-- тут реализация вкладки UserTable-->
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th colspan="7" class="text-left">All users</th>
+                </tr>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Roles</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.getId()}"></td>
+                    <td>
+                        <p th:text="${user.getUsername()}"></p>
+                    </td>
+                    <td th:text="${user.getPassword()}"></td>
+                    <td th:text="${user.getEmail()}"></td>
+                    <td>
+                <span th:each="role : ${user.getRoles()}">
+                    <span th:text="${role.getName()}"></span><br/>
+                </span>
+                    </td>
+                    <td>
+                        <a th:href="@{/admin/users/{id}(id=${user.getId()})}">Edit</a>
+                    </td>
+                    <td>
+                        <form th:method="DELETE" th:action="@{/admin/users/{id}(id=${user.getId()})}">
+                            <input type="submit" value="Delete"/>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--        тут реализация вкладки создания юзера-->
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+                <form th:method="POST" th:action="@{/admin/users}" th:object="${user}" class="col-md-4">
+                    <div class="mb-3">
+                        <label for="inputEmail4" class="form-label">Username</label>
+                        <input type="email" class="form-control" id="inputEmail4">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword4" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="inputPassword4">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputAddress" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputState" class="form-label">Role</label>
+                        <select id="inputState" class="form-select">
+                            <option>Admin</option>
+                            <option>User</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br/>
+<hr/>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
