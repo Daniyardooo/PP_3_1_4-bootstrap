@@ -25,7 +25,10 @@ public class User implements UserDetails {
     @Email
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public User() {
@@ -36,6 +39,11 @@ public class User implements UserDetails {
         this.password = password;
         this.email = email;
         this.roles = roles;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getId() {

@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,23 +19,28 @@ import java.security.Principal;
 @RequestMapping("/")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
 
     }
 
     @GetMapping("/")
-    public String getIndex() {
+    public String getIndex(Model model, Principal principal) {
+        model.addAttribute("users", userServiceImpl.getAllUsers());
+        String principalName = principal.getName();
+        User user = userServiceImpl.findByUsername(principalName);
+        model.addAttribute("user", user);
         return "index";
+
     }
 
     @GetMapping("/user")
     public String getUserInfo(Principal principal, Model model) {
         String username = principal.getName();
-        User user = userService.findByUsername(username);
+        User user = userServiceImpl.findByUsername(username);
         model.addAttribute("user", user);
         return "user";
     }
