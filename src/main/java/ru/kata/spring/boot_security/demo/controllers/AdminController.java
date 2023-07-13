@@ -4,12 +4,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin/users")
@@ -55,6 +58,8 @@ public class AdminController {
 
     @PatchMapping("/update")
     public String updateUserById(User user) { // Не могу получить id юзера из представления
+
+
         userServiceImpl.updateUserById(user.getId(), user);
         return "redirect:/admin/users";
     }

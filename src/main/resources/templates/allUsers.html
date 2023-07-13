@@ -64,10 +64,12 @@
         <h1>Admin panel</h1>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Users table</a>
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                   aria-selected="true">Users table</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">New user</a>
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                   aria-controls="profile" aria-selected="false">New user</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -129,33 +131,35 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- BODY-->
-                                    <div class="mb-3 text-center">
-                                        <label for="id" class="form-label fw-bold">ID</label>
-                                        <input type="text" class="form-control" id="id" name="id" value=""/>
+                                    <div class="mb-3 text-center mx-auto">
+                                        <label for="id" class="form-label font-weight-bold">ID</label>
+                                        <input type="text" class="text-center mx-auto form-control col-6" id="id" name="id" value="" readonly/>
+                                    </div>
+                                    <div class="mb-3 text-center mx-auto">
+                                        <label for="username" class="form-label font-weight-bold">Username</label>
+                                        <input type="text" class="text-center mx-auto form-control col-6" id="username" name="username" value=""/>
+                                    </div>
+                                    <div class="mb-3 text-center mx-auto">
+                                        <label for="password" class="form-label font-weight-bold">Password</label>
+                                        <input type="password" class="text-center mx-auto form-control col-6" id="password" name="password" value=""/>
+                                    </div>
+                                    <div class="mb-3 text-center mx-auto">
+                                        <label for="email" class="form-label font-weight-bold">Email</label>
+                                        <input type="text" class="text-center mx-auto form-control col-6" id="email" name="email" value=""/>
                                     </div>
                                     <div class="mb-3 text-center">
-                                        <label for="username" class="form-label fw-bold">username</label>
-                                        <input type="text" class="form-control" id="username" name="username" value=""/>
-                                    </div>
-                                    <div class="mb-3 text-center">
-                                        <label for="password" class="form-label fw-bold">Password</label>
-                                        <input type="text" class="form-control" id="password" name="password" value=""/>
-                                    </div>
-                                    <div class="mb-3 text-center">
-                                        <label for="email" class="form-label fw-bold">Email</label>
-                                        <input type="text" class="form-control" id="email" name="email" value=""/>
-                                    </div>
-                                    <div class="mb-3 text-center">
-<!--                                        <label for="role" class="form-label fw-bold">Roles</label>-->
-<!--                                        <input type="text" class="form-control" id="role" name="role" value=""/>-->
-
-                                        <label><input type="checkbox" class="form-control" id="userRole" name="roles" value=""/> Пользователь</label><br>
-                                        <label><input type="checkbox" class="form-control" id="adminRole" name="roles" value=""/> Администратор</label>
+                                        <label for="userRole" class="d-block  font-weight-bold">Role:</label>
+                                        <label class="d-inline-block mx-3">
+                                            <input type="checkbox" class="form-control" id="userRole" name="roles" value="1"> Пользователь
+                                        </label>
+                                        <label class="d-inline-block mx-3">
+                                            <input type="checkbox" class="form-control" id="adminRole" name="roles" value="2"> Администратор
+                                        </label>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                         </button>
-                                        <input type="submit" class="btn btn-primary" value="PATCH" >
+                                        <input type="submit" class="btn btn-primary" value="Edit">
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +167,6 @@
                     </div>
                 </form>
             </div>
-
 
 
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -175,21 +178,29 @@
                     </thead>
                     <tr style="background-color: white">
                         <td>
-                            <form th:method="POST" th:action="@{/admin/users}" th:object="${user}" class="col-md-4 justify-content-center mx-auto">
+                            <form th:method="POST" th:action="@{/admin/users}" th:object="${user}"
+                                  class="col-md-4 justify-content-center mx-auto">
                                 <div class="mb-3 text-center">
                                     <label for="name" class="form-label fw-bold">Username</label>
                                     <input type="text" th:field="*{username}" class="form-control" id="name">
-                                    <div style="color:red" th:errors="*{username}" th:if="${#fields.hasErrors('username')}">Username Error</div>
+                                    <div style="color:red" th:errors="*{username}"
+                                         th:if="${#fields.hasErrors('username')}">Username Error
+                                    </div>
                                 </div>
                                 <div class="mb-3 text-center">
                                     <label for="newPassword" class="form-label fw-bold">Password</label>
                                     <input type="password" th:field="*{password}" class="form-control" id="newPassword">
-                                    <div class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+                                    <div class="error-message" th:if="${#fields.hasErrors('password')}"
+                                         th:errors="*{password}">Password Error
+                                    </div>
                                 </div>
                                 <div class="mb-3 text-center">
                                     <label for="newEmail" class="form-label fw-bold">Email</label>
-                                    <input type="email" th:field="*{email}" class="form-control" id="newEmail" placeholder="">
-                                    <div class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+                                    <input type="email" th:field="*{email}" class="form-control" id="newEmail"
+                                           placeholder="">
+                                    <div class="error-message" th:if="${#fields.hasErrors('email')}"
+                                         th:errors="*{email}">Email Error
+                                    </div>
                                 </div>
                                 <div class="mb-3 text-center">
                                     <label for="inputState" class="form-label fw-bold">Role</label>
