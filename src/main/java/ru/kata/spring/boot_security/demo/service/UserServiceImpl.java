@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,11 +30,6 @@ public class UserServiceImpl implements UserService {
         return userFromDb.get();
     }
 
-    @Transactional
-    public User findOne(Long id) {
-        User user = userDao.findById(id).get();
-        return user;
-    }
 
     @Transactional
     public void updateUserById(Long id, User updatedUser) {
@@ -71,14 +67,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional(readOnly = true)
-    public User findByUsername(String username) {
+    public Optional<User> findByUsername(String username) {
         return userDao.findByUsername(username);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public User findByEmail(String email){
-        return userDao.findByEmail(email);
     }
 
 }

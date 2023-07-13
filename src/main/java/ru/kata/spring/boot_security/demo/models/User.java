@@ -4,9 +4,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
@@ -17,17 +14,15 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Size(min = 2, message = "Не меньше 5 знаков")
+
     private String username;
 
     private String name;
 
     private Integer age;
 
-    @Size(min = 2, message = "Не меньше 5 знаков")
     private String password;
-    @NotEmpty(message = "Email should not be empty")
-    @Email
+
     private String email;
 
 
@@ -65,12 +60,12 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -139,13 +134,11 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(roles, user.roles);
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(name, user.name) && Objects.equals(age, user.age) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(roles, user.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, email, roles);
+        return Objects.hash(id, username, name, age, password, email, roles);
     }
-
-
 }

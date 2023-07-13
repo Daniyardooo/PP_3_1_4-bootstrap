@@ -3,11 +3,11 @@ package ru.kata.spring.boot_security.demo.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/users")
@@ -21,11 +21,10 @@ public class AdminController {
 
     @GetMapping("")
     public String getUsers(Model model, Principal principal) {
-
         model.addAttribute("users", userServiceImpl.getAllUsers());
         String principalName = principal.getName();
-        User user = userServiceImpl.findByUsername(principalName);
-        int nextUserId = userServiceImpl.getAllUsers().size()+1;
+        User user = userServiceImpl.findByUsername(principalName).get();
+        int nextUserId = userServiceImpl.getAllUsers().size() + 1;
         model.addAttribute("user", user);
         model.addAttribute("nextUserId", nextUserId);
         return "allUsers";
@@ -34,60 +33,35 @@ public class AdminController {
 
     @GetMapping("/findOne")
     @ResponseBody
-    public User findOne(Long id){
-        return userServiceImpl.findOne(id);
+    public User findOne(Long id) {
+        return userServiceImpl.findUserById(id);
     }
 
-    @GetMapping("/{id}")
-    public String getUpdateUserForm(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("user", userServiceImpl.findUserById(id));
-        model.addAttribute("users", userServiceImpl.getAllUsers());
-
-        return "allUsers";
-    }
-
-    @GetMapping("/new")
-    public String getNewUserForm(@ModelAttribute("user") User user) {
-        return "user";
-    }
 
     @PatchMapping("/update")
-    public String updateUserById(User user, Principal principal, RedirectAttributes redirectAttributes) {
-        if(principal.getName().equals(userServiceImpl.findUserById(user.getId()).getUsername()) && !principal.getName().equals(user.getUsername())){
-                userServiceImpl.updateUserById(user.getId(), user);
-            redirectAttributes.addFlashAttribute("message", "Пожалуйста, выполните повторную авторизацию.");
-
+    public String updateUserById(User user, Principal principal) {
+        if (principal.getName().equals(userServiceImpl.findUserById(user.getId()).getUsername()) && !principal.getName().equals(user.getUsername())) {
+            userServiceImpl.updateUserById(user.getId(), user);
             return "redirect:/login";
-
         }
         userServiceImpl.updateUserById(user.getId(), user);
         return "redirect:/admin/users";
     }
 
-
-
     @DeleteMapping("/delete")
     public String removeUserById(User user) {
         userServiceImpl.deleteUserById(user.getId());
         return "redirect:/admin/users";
-
     }
-
-
     @PostMapping("/new")
-    public String createUser(User user){
-
-        User userFromDB = userServiceImpl.findByUsername(user.getUsername());
-        if (userFromDB == user){
-            throw new RuntimeException("User already exist");
+    public String createUser(User user) {
+        Optional<User> userFromDB = userServiceImpl.findByUsername(user.getUsername());
+        if (userFromDB.isPresent()) {
+            return "redirect:/admin/users?error=User already exists ";
         }
         userServiceImpl.saveUser(user);
         return "redirect:/admin/users";
     }
-
-
-
-
-
-
 }
+
+

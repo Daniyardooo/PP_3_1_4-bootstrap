@@ -1,9 +1,9 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.models.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     User findUserById(Long userId);
@@ -16,8 +16,6 @@ public interface UserService {
 
     void deleteUserById(Long userId);
 
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
-
-    User findByEmail(String email);
 }

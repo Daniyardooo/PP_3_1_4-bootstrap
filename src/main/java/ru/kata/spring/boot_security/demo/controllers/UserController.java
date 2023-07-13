@@ -14,6 +14,7 @@ import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
@@ -27,21 +28,11 @@ public class UserController {
 
     }
 
-    @GetMapping("/")
-    public String getIndex(Model model, Principal principal) {
-        model.addAttribute("users", userServiceImpl.getAllUsers());
-        String principalName = principal.getName();
-        User user = userServiceImpl.findByUsername(principalName);
-        model.addAttribute("user", user);
-        return "login";
-
-    }
-
     @GetMapping("/user")
     public String getUserInfo(Principal principal, Model model) {
         String username = principal.getName();
-        User user = userServiceImpl.findByUsername(username);
-        model.addAttribute("user", user);
+        Optional<User> user = userServiceImpl.findByUsername(username);
+        model.addAttribute("user", user.get());
         return "user";
     }
 
@@ -53,7 +44,6 @@ public class UserController {
         }
         return "redirect:/login";
     }
-
 
 
 }
