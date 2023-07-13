@@ -12,6 +12,8 @@ $('document').ready(function () {
             $('#id').val(user.id);
             $('#username').val(user.username);
             $('#email').val(user.email);
+            $('#name').val(user.name);
+            $('#age').val(user.age);
             // $('#password').val(user.password);
 
             for (var i = 0; i < user.roles.length; i++) {

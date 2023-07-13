@@ -30,7 +30,7 @@
             <span th:text="${role.getName()}"></span>
         </div>
         <div style="position: absolute; top: 15px; right: 10px;">
-            <a th:href="@{/logout}">Выход</a>
+            <a style="color: #666" th:href="@{/logout}">Logout</a>
         </div>
     </div>
 </header>
@@ -82,7 +82,8 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Username</th>
-                        <th scope="col">Password</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
                         <th scope="col">Email</th>
                         <th scope="col">Roles</th>
                         <th scope="col">Edit</th>
@@ -95,7 +96,8 @@
                         <td>
                             <p th:text="${user.getUsername()}"></p>
                         </td>
-                        <td th:text="${user.getPassword()}"></td>
+                        <td th:text="${user.getName()}"></td>
+                        <td th:text="${user.getAge()}"></td>
                         <td th:text="${user.getEmail()}"></td>
                         <td>
               <span th:each="role : ${user.getRoles()}">
@@ -140,6 +142,14 @@
                                         <input type="text" class="text-center mx-auto form-control col-6" id="username" name="username" value=""/>
                                     </div>
                                     <div class="mb-3 text-center mx-auto">
+                                        <label for="name" class="form-label font-weight-bold">Name</label>
+                                        <input type="text" class="text-center mx-auto form-control col-6" id="name" name="name" value=""/>
+                                    </div>
+                                    <div class="mb-3 text-center mx-auto">
+                                        <label for="age" class="form-label font-weight-bold">Age</label>
+                                        <input type="text" class="text-center mx-auto form-control col-6" id="age" name="age" value=""/>
+                                    </div>
+                                    <div class="mb-3 text-center mx-auto">
                                         <label for="password" class="form-label font-weight-bold">Password</label>
                                         <input type="password" class="text-center mx-auto form-control col-6" id="password" name="password" value=""/>
                                     </div>
@@ -180,22 +190,42 @@
                         <td>
                             <form th:method="POST" th:action="@{/admin/users}" th:object="${user}"
                                   class="col-md-4 justify-content-center mx-auto">
+
                                 <div class="mb-3 text-center">
-                                    <label for="name" class="form-label fw-bold">Username</label>
-                                    <input type="text" th:field="*{username}" class="form-control" id="name">
+                                    <label for="newID" class="form-label font-weight-bold">ID</label>
+                                    <input type="text"  class="form-control" id="newID" th:value="${nextUserId}" disabled>
+                                </div>
+
+                                <div class="mb-3 text-center">
+                                    <label for="newUsername" class="form-label font-weight-bold">Username</label>
+                                    <input type="text" th:field="*{username}" class="form-control" id="newUsername">
                                     <div style="color:red" th:errors="*{username}"
                                          th:if="${#fields.hasErrors('username')}">Username Error
                                     </div>
                                 </div>
                                 <div class="mb-3 text-center">
-                                    <label for="newPassword" class="form-label fw-bold">Password</label>
+                                    <label for="newName" class="form-label font-weight-bold">Name</label>
+                                    <input type="text" th:field="*{name}" class="form-control" id="newName">
+                                    <div style="color:red" th:errors="*{name}"
+                                         th:if="${#fields.hasErrors('username')}">Username Error
+                                    </div>
+                                </div>
+                                    <div class="mb-3 text-center">
+                                        <label for="newAge" class="form-label font-weight-bold">Age</label>
+                                        <input type="text" th:field="*{age}" class="form-control" id="newAge">
+                                        <div style="color:red" th:errors="*{age}"
+                                             th:if="${#fields.hasErrors('age')}">Username Error
+                                        </div>
+                                </div>
+                                <div class="mb-3 text-center">
+                                    <label for="newPassword" class="form-label font-weight-bold">Password</label>
                                     <input type="password" th:field="*{password}" class="form-control" id="newPassword">
                                     <div class="error-message" th:if="${#fields.hasErrors('password')}"
                                          th:errors="*{password}">Password Error
                                     </div>
                                 </div>
                                 <div class="mb-3 text-center">
-                                    <label for="newEmail" class="form-label fw-bold">Email</label>
+                                    <label for="newEmail" class="form-label font-weight-bold">Email</label>
                                     <input type="email" th:field="*{email}" class="form-control" id="newEmail"
                                            placeholder="">
                                     <div class="error-message" th:if="${#fields.hasErrors('email')}"
@@ -203,15 +233,16 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 text-center">
-                                    <label for="inputState" class="form-label fw-bold">Role</label>
-                                    <select id="inputState" class="form-control" th:field="*{roles}">
-                                        <option value="1">User</option>
-                                        <option value="2">Administrator</option>
-                                    </select>
+                                    <label><input th:field="*{roles}" type="checkbox" value="1"> Пользователь</label><br>
+                                    <label><input th:field="*{roles}" type="checkbox" value="2"> Администратор</label>
+                                    <div class="error-message" th:errors="*{roles}" th:if="${#fields.hasErrors('roles')}">Ошибка выбора
+                                        ролей
+                                    </div>
                                 </div>
                                 <div class="mb-3 text-center mx-auto">
                                     <button type="submit" class="btn btn-success">Add new user</button>
                                 </div>
+
                             </form>
                         </td>
                     </tr>

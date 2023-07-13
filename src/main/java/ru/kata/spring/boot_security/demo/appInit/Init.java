@@ -39,7 +39,7 @@ public class Init {
         Set<Role> roles = new HashSet<>();
         roles.add(userRole);
         roles.add(adminRole);
-        User user = new User("Daniyardo", "$2a$12$dzR9OqICVGrCv.rGT6bPE.5B3pX0V16UGptogtkvKeAZd3T8j0nfq",
+        User user = new User("Daniyardo", "Daniil", 23, "$2a$12$dzR9OqICVGrCv.rGT6bPE.5B3pX0V16UGptogtkvKeAZd3T8j0nfq",
                 "danhas@mail.ru", roles);
         userDao.save(user);
     }

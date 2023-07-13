@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
@@ -12,6 +13,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Controller
@@ -57,25 +59,19 @@ public class AdminController {
     }
 
     @PatchMapping("/update")
-    public String updateUserById(User user) { // Не могу получить id юзера из представления
+    public String updateUserById(User user, Principal principal, RedirectAttributes redirectAttributes) {
+        if(principal.getName().equals(userServiceImpl.findUserById(user.getId()).getUsername()) && !principal.getName().equals(user.getUsername())){
+                userServiceImpl.updateUserById(user.getId(), user);
+            redirectAttributes.addFlashAttribute("message", "Пожалуйста, выполните повторную авторизацию.");
 
+            return "redirect:/login";
 
+        }
         userServiceImpl.updateUserById(user.getId(), user);
         return "redirect:/admin/users";
     }
 
-//    @PatchMapping("/update")
-//    public String updateUserById(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-//                                 @PathVariable("id") Long id) {
-//        if (bindingResult.hasErrors())
-//            return "allUsers";
-//        if (userServiceImpl.findByUsername(user.getUsername()) != null) {
-//            bindingResult.rejectValue("username", "error.username", "Имя пользователя уже существует");
-//            return "allUsers";
-//        }
-//        userServiceImpl.updateUserById(id, user);
-//        return "redirect:/admin/users";
-//    }
+
 
     @DeleteMapping("/{id}")
     public String removeUserById(@PathVariable("id") Long id) {

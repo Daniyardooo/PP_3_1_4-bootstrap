@@ -43,6 +43,8 @@ public class UserServiceImpl implements UserService {
             existingUser.get().setPassword(bCryptPasswordEncoder.encode(updatedUser.getPassword()));
             existingUser.get().setEmail(updatedUser.getEmail());
             existingUser.get().setRoles(updatedUser.getRoles());
+            existingUser.get().setAge(updatedUser.getAge());
+            existingUser.get().setName(updatedUser.getName());
             userDao.save(existingUser.get());
         } else throw new RuntimeException("Update user error");
     }

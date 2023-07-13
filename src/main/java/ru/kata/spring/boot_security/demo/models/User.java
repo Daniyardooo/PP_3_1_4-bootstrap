@@ -19,13 +19,19 @@ public class User implements UserDetails {
     private Long id;
     @Size(min = 2, message = "Не меньше 5 знаков")
     private String username;
+
+    private String name;
+
+    private Integer age;
+
     @Size(min = 2, message = "Не меньше 5 знаков")
     private String password;
     @NotEmpty(message = "Email should not be empty")
     @Email
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -34,13 +40,30 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String password, String email, Set<Role> roles) {
+    public User(String username, String name, Integer age, String password, String email, Set<Role> roles) {
         this.username = username;
+        this.name = name;
+        this.age = age;
         this.password = password;
         this.email = email;
         this.roles = roles;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
     public void setId(Long id) {
         this.id = id;
