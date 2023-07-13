@@ -1,38 +1,93 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Spring Security Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script th:src="@{../main.js}" src="/main.js" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <style>
+        header {
+            box-sizing: content-box;
+        }
+    </style>
 </head>
-<body>
-<h1>User, welcome spring boot security page!</h1>
+<header class="p-3 bg-dark text-white" style="position: relative;">
+    <div th:object="${user}">
+        <strong>
+            <span th:text="${user.getUsername()}"></span>
+        </strong>
+        <span> with roles: </span>
+        <div class="d-inline" th:each="role : ${user.getRoles()}">
+            <span th:text="${role.getName()}"></span>
+        </div>
+        <div style="position: absolute; top: 15px; right: 10px;">
+            <a style="color: #999" th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+</header>
+
+<body style="background-color: #f8f9fa">
+
+<div class="row">
+    <div class="col-md-2" style="margin-top: 25px">
+<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+    <a class="nav-link show active" id="v-pills-profile-tab" data-toggle="pill" href="#user-tab" role="tab"
+       aria-controls="v-pills-profile" aria-selected="true">User</a>
+</div>
+    </div>
+    <div class="col-md-9">
+    <div class="tab-content" id="v-pills-tabContent">
+    <div class="tab-pane fade show active" id="user-tab" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+        <h1>User information-page</h1>
+        <table class="table table-striped">
+            <thead style="background-color: #f7f7f7">
+            <tr>
+                <th colspan="8" class="text-left" style="background-color: #f2f2f2">About user</th>
+            </tr>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Email</th>
+                <th scope="col">Roles</th>
+            </tr>
+            </thead>
+            <tbody th:object="${user}">
+            <tr>
+                <td th:text="${user.getId()}"></td>
+                <td>
+                    <p th:text="${user.getUsername()}"></p>
+                </td>
+                <td th:text="${user.getName()}"></td>
+                <td th:text="${user.getAge()}"></td>
+                <td th:text="${user.getEmail()}"></td>
+                <td>
+                            <span th:each="role : ${user.getRoles()}">
+                                <span th:text="${role.getName()}"></span><br/>
+                            </span>
+                </td>
 
 
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Email</th>
-        <th>Role</th>
+</div>
+    </div>
+</div>
 
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.getPassword()}"></td>
-        <td th:text="${user.getEmail()}"></td>
-        <td>
-                <span th:each="role : ${user.getRoles()}">
-                        <span th:text="${role.getName()}"></span><br/>
-                </span>
-        </td>
-
-    </tr>
-    </tbody>
-</table>
-<a th:href="@{/logout}">Выход</a>
 
 </body>
 </html>
+

@@ -59,6 +59,18 @@ $('document').ready(function () {
         $('.myDeleteForm #deleteModal').modal();
     });
 
+    $("#incrementAge").click(function() {
+        var age = parseInt($("#age").val());
+        $("#age").val(age + 1);
+    });
+
+    $("#decrementAge").click(function() {
+        var age = parseInt($("#age").val());
+        if (age > 0) {
+            $("#age").val(age - 1);
+        }
+    });
+
 
 
 

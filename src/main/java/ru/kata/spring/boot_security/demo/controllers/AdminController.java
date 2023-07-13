@@ -2,19 +2,12 @@ package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
-import javax.validation.Valid;
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin/users")
@@ -55,7 +48,7 @@ public class AdminController {
 
     @GetMapping("/new")
     public String getNewUserForm(@ModelAttribute("user") User user) {
-        return "new";
+        return "user";
     }
 
     @PatchMapping("/update")
@@ -73,7 +66,7 @@ public class AdminController {
 
 
 
-    @PatchMapping("/delete")
+    @DeleteMapping("/delete")
     public String removeUserById(User user) {
         userServiceImpl.deleteUserById(user.getId());
         return "redirect:/admin/users";
@@ -81,15 +74,12 @@ public class AdminController {
     }
 
 
-    @PostMapping()
-    public String createUser(@ModelAttribute("user") @Valid User user,
-                             BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "allUsers";
+    @PostMapping("/new")
+    public String createUser(User user){
+
         User userFromDB = userServiceImpl.findByUsername(user.getUsername());
-        if (userFromDB != null) {
-            bindingResult.rejectValue("username", "error.username", "Имя пользователя уже существует");
-            return "allUsers";
+        if (userFromDB == user){
+            throw new RuntimeException("User already exist");
         }
         userServiceImpl.saveUser(user);
         return "redirect:/admin/users";
