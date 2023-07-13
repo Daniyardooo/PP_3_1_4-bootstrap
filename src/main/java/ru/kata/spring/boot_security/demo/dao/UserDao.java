@@ -8,4 +8,8 @@ import ru.kata.spring.boot_security.demo.models.User;
 public interface UserDao extends JpaRepository<User, Long> {
     User findByUsername(String username);
 
+    User findByEmail(String email);
+
+
+
 }

@@ -73,9 +73,9 @@ public class AdminController {
 
 
 
-    @DeleteMapping("/{id}")
-    public String removeUserById(@PathVariable("id") Long id) {
-        userServiceImpl.deleteUserById(id);
+    @PatchMapping("/delete")
+    public String removeUserById(User user) {
+        userServiceImpl.deleteUserById(user.getId());
         return "redirect:/admin/users";
 
     }
@@ -94,4 +94,10 @@ public class AdminController {
         userServiceImpl.saveUser(user);
         return "redirect:/admin/users";
     }
+
+
+
+
+
+
 }

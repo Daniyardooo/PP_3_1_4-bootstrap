@@ -33,7 +33,7 @@ public class UserController {
         String principalName = principal.getName();
         User user = userServiceImpl.findByUsername(principalName);
         model.addAttribute("user", user);
-        return "index";
+        return "login";
 
     }
 
@@ -53,6 +53,8 @@ public class UserController {
         }
         return "redirect:/login";
     }
+
+
 
 }
 
