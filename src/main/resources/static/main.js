@@ -41,7 +41,6 @@ $('document').ready(function () {
             $('#deleteEmail').val(user.email);
             $('#deleteName').val(user.name);
             $('#deleteAge').val(user.age);
-            // $('#password').val(user.password);
 
             for (var i = 0; i < user.roles.length; i++) {
                 var role = user.roles[i];
@@ -58,19 +57,17 @@ $('document').ready(function () {
         $('.myDeleteForm #deleteModal').modal();
     });
 
-    $("#incrementAge").click(function() {
+    $("#incrementAge").click(function () {
         var age = parseInt($("#age").val());
         $("#age").val(age + 1);
     });
 
-    $("#decrementAge").click(function() {
+    $("#decrementAge").click(function () {
         var age = parseInt($("#age").val());
         if (age > 0) {
             $("#age").val(age - 1);
         }
     });
-
-
 
 
 });

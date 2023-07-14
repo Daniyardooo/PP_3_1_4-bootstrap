@@ -53,6 +53,7 @@ public class AdminController {
         userServiceImpl.deleteUserById(user.getId());
         return "redirect:/admin/users";
     }
+
     @PostMapping("/new")
     public String createUser(User user) {
         Optional<User> userFromDB = userServiceImpl.findByUsername(user.getUsername());

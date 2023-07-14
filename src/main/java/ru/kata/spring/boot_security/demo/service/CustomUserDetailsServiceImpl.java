@@ -24,10 +24,11 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetails {
     public void setUserService(UserDao userDao) {
         this.userDao = userDao;
     }
+
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional <User> user = userDao.findByUsername(username);
+        Optional<User> user = userDao.findByUsername(username);
 
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("User not found");

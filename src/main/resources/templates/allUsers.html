@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script th:src="@{../main.js}" src="/main.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
+    <script crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            type="text/javascript"></script>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+    <script src="/main.js" th:src="@{../main.js}" type="text/javascript"></script>
     <meta charset="UTF-8">
     <style>
         header {
@@ -36,36 +36,36 @@
 <!--Sidebar-->
 <div class="row">
     <div class="col-md-2" style="margin-top: 25px; background-color: white; min-height: 100vh">
-        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active " id="v-pills-home-tab" data-toggle="pill" href="#admin-tab" role="tab"
-               aria-controls="v-pills-home" aria-selected="true">Admin</a>
-            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#user-tab" role="tab"
-               aria-controls="v-pills-profile" aria-selected="false">User</a>
+        <div aria-orientation="vertical" class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+            <a aria-controls="v-pills-home" aria-selected="true" class="nav-link active " data-toggle="pill" href="#admin-tab"
+               id="v-pills-home-tab" role="tab">Admin</a>
+            <a aria-controls="v-pills-profile" aria-selected="false" class="nav-link" data-toggle="pill" href="#user-tab"
+               id="v-pills-profile-tab" role="tab">User</a>
         </div>
     </div>
     <!--Вкладки Всеюзеры/Новый юзер тут-->
     <div class="col-md-9">
         <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="admin-tab" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <div aria-labelledby="v-pills-home-tab" class="tab-pane fade show active" id="admin-tab" role="tabpanel">
                 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" id="myTabContent" style="flex-grow: 1 ; ">
                     <h1>Admin panel</h1>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                               aria-controls="home"
-                               aria-selected="true">Users table</a>
+                            <a aria-controls="home" aria-selected="true" class="nav-link active" data-toggle="tab" href="#home"
+                               id="home-tab"
+                               role="tab">Users table</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                               aria-controls="profile" aria-selected="false">New user</a>
+                            <a aria-controls="profile" aria-selected="false" class="nav-link" data-toggle="tab" href="#profile"
+                               id="profile-tab" role="tab">New user</a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div aria-labelledby="home-tab" class="tab-pane fade show active" id="home" role="tabpanel">
                             <table class="table table-striped">
                                 <thead style="background-color: #f7f7f7">
                                 <tr>
-                                    <th colspan="8" class="text-left" style="background-color: #f2f2f2">All users</th>
+                                    <th class="text-left" colspan="8" style="background-color: #f2f2f2">All users</th>
                                 </tr>
                                 <tr>
                                     <th scope="col">ID</th>
@@ -93,12 +93,12 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a th:href="@{users/findOne/(id=${user.id})}"
-                                           class="btn btn-primary eBtn">Edit</a>
+                                        <a class="btn btn-primary eBtn"
+                                           th:href="@{users/findOne/(id=${user.id})}">Edit</a>
                                     </td>
                                     <td>
-                                        <a th:href="@{users/findOne/(id=${user.id})}"
-                                           class="btn btn-danger dBtn">Delete</a>
+                                        <a class="btn btn-danger dBtn"
+                                           th:href="@{users/findOne/(id=${user.id})}">Delete</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -107,88 +107,88 @@
                         <div class="myForm">
                             <form th:action="@{/admin/users/update}" th:method="PATCH">
                                 <!-- модальное окно редактирования юзера -->
-                                <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog"
-                                     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                <div aria-hidden="true" aria-labelledby="exampleModalLongTitle" class="modal fade bd-example-modal-lg" id="editModal"
+                                     role="dialog" tabindex="-1">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLongTitle">Edit user</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                <button aria-label="Close" class="close" data-dismiss="modal"
+                                                        type="button">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <!-- BODY-->
                                                 <div class="mb-3 text-center mx-auto">
-                                                    <label for="id" class="form-label font-weight-bold">ID</label>
-                                                    <input type="text" class="text-center mx-auto form-control col-6"
-                                                           id="id"
-                                                           name="id" value="" readonly/>
+                                                    <label class="form-label font-weight-bold" for="id">ID</label>
+                                                    <input class="text-center mx-auto form-control col-6" id="id"
+                                                           name="id"
+                                                           readonly type="text" value=""/>
                                                 </div>
 
                                                 <div class="mb-3 text-center mx-auto">
-                                                    <label for="username"
-                                                           class="form-label font-weight-bold">Username</label>
-                                                    <input type="text" class="text-center mx-auto form-control col-6"
-                                                           id="username"
-                                                           name="username" value="" required minlength="5"/>
+                                                    <label class="form-label font-weight-bold"
+                                                           for="username">Username</label>
+                                                    <input class="text-center mx-auto form-control col-6" id="username"
+                                                           minlength="5"
+                                                           name="username" required type="text" value=""/>
                                                 </div>
                                                 <div class="mb-3 text-center mx-auto">
-                                                    <label for="name" class="form-label font-weight-bold">Name</label>
-                                                    <input type="text" class="text-center mx-auto form-control col-6"
-                                                           id="name"
-                                                           name="name" value="" required minlength="5"/>
+                                                    <label class="form-label font-weight-bold" for="name">Name</label>
+                                                    <input class="text-center mx-auto form-control col-6" id="name"
+                                                           minlength="5"
+                                                           name="name" required type="text" value=""/>
                                                 </div>
                                                 <div class="mb-3 text-center mx-auto">
-                                                    <label for="age" class="form-label font-weight-bold">Age</label>
+                                                    <label class="form-label font-weight-bold" for="age">Age</label>
                                                     <div class="input-group col-6 mx-auto">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-primary" type="button"
-                                                                    id="decrementAge">-</button>
+                                                            <button class="btn btn-primary" id="decrementAge"
+                                                                    type="button">-</button>
                                                         </span>
-                                                        <input type="number" class="text-center form-control" id="age"
-                                                               name="age" value="0" required minlength="1">
+                                                        <input class="text-center form-control" id="age" minlength="1"
+                                                               name="age" required type="number" value="0">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-primary" type="button"
-                                                                    id="incrementAge">+</button>
+                                                            <button class="btn btn-primary" id="incrementAge"
+                                                                    type="button">+</button>
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 text-center mx-auto">
-                                                    <label for="password"
-                                                           class="form-label font-weight-bold">Password</label>
-                                                    <input type="password"
-                                                           class="text-center mx-auto form-control col-6"
-                                                           id="password" name="password" value="" required
-                                                           minlength="5"/>
+                                                    <label class="form-label font-weight-bold"
+                                                           for="password">Password</label>
+                                                    <input class="text-center mx-auto form-control col-6"
+                                                           id="password"
+                                                           minlength="5" name="password" required type="password"
+                                                           value=""/>
                                                 </div>
                                                 <div class="mb-3 text-center mx-auto">
-                                                    <label for="email" class="form-label font-weight-bold">Email</label>
-                                                    <input type="email" class="text-center mx-auto form-control col-6"
-                                                           id="email"
-                                                           name="email" value="" required minlength="5"/>
+                                                    <label class="form-label font-weight-bold" for="email">Email</label>
+                                                    <input class="text-center mx-auto form-control col-6" id="email"
+                                                           minlength="5"
+                                                           name="email" required type="email" value=""/>
                                                 </div>
                                                 <div class="mb-3 text-center">
-                                                    <label for="userRole"
-                                                           class="d-block  font-weight-bold">Role:</label>
+                                                    <label class="d-block  font-weight-bold"
+                                                           for="userRole">Role:</label>
                                                     <label class="d-inline-block mx-3">
-                                                        <input type="checkbox" class="form-control" id="userRole"
-                                                               name="roles"
+                                                        <input class="form-control" id="userRole" name="roles"
+                                                               type="checkbox"
                                                                value="1"> Пользователь
                                                     </label>
                                                     <label class="d-inline-block mx-3">
-                                                        <input type="checkbox" class="form-control" id="adminRole"
-                                                               name="roles"
+                                                        <input class="form-control" id="adminRole" name="roles"
+                                                               type="checkbox"
                                                                value="2"> Администратор
                                                     </label>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">
+                                                    <button class="btn btn-secondary" data-dismiss="modal"
+                                                            type="button">
                                                         Close
                                                     </button>
-                                                    <input type="submit" class="btn btn-primary" value="Edit">
+                                                    <input class="btn btn-primary" type="submit" value="Edit">
                                                 </div>
                                             </div>
                                         </div>
@@ -200,68 +200,68 @@
                         <!--            модальное окно удаления юзера-->
                         <div class="myDeleteForm">
                             <form th:action="@{/admin/users/delete}" th:method="DELETE">
-                                <div class="modal fade bd-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog"
-                                     aria-labelledby="deleteModalLong" aria-hidden="true">
+                                <div aria-hidden="true" aria-labelledby="deleteModalLong" class="modal fade bd-example-modal-lg" id="deleteModal"
+                                     role="dialog" tabindex="-1">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="deleteModalLong">Delete user</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                <button aria-label="Close" class="close" data-dismiss="modal"
+                                                        type="button">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="mb-3 text-center mx-auto">
-                                                    <label for="deleteId" class="form-label font-weight-bold">ID</label>
-                                                    <input type="text" class="text-center mx-auto form-control col-6"
-                                                           id="deleteId"
-                                                           name="Id" value="" readonly/>
+                                                    <label class="form-label font-weight-bold" for="deleteId">ID</label>
+                                                    <input class="text-center mx-auto form-control col-6" id="deleteId"
+                                                           name="Id"
+                                                           readonly type="text" value=""/>
                                                 </div>
                                                 <div class="mb-3 text-center mx-auto">
-                                                    <label for="deleteUsername"
-                                                           class="form-label font-weight-bold">Username</label>
-                                                    <input type="text" class="text-center mx-auto form-control col-6"
-                                                           id="deleteUsername" name="username" value="" readonly/>
+                                                    <label class="form-label font-weight-bold"
+                                                           for="deleteUsername">Username</label>
+                                                    <input class="text-center mx-auto form-control col-6" id="deleteUsername"
+                                                           name="username" readonly type="text" value=""/>
                                                 </div>
                                                 <div class="mb-3 text-center mx-auto">
-                                                    <label for="deleteName"
-                                                           class="form-label font-weight-bold">Name</label>
-                                                    <input type="text" class="text-center mx-auto form-control col-6"
-                                                           id="deleteName" name="name" value="" readonly/>
+                                                    <label class="form-label font-weight-bold"
+                                                           for="deleteName">Name</label>
+                                                    <input class="text-center mx-auto form-control col-6" id="deleteName"
+                                                           name="name" readonly type="text" value=""/>
                                                 </div>
                                                 <div class="mb-3 text-center mx-auto">
-                                                    <label for="deleteAge"
-                                                           class="form-label font-weight-bold">Age</label>
-                                                    <input type="text" class="text-center mx-auto form-control col-6"
-                                                           id="deleteAge"
-                                                           name="age" value="" readonly/>
+                                                    <label class="form-label font-weight-bold"
+                                                           for="deleteAge">Age</label>
+                                                    <input class="text-center mx-auto form-control col-6" id="deleteAge"
+                                                           name="age"
+                                                           readonly type="text" value=""/>
                                                 </div>
                                                 <div class="mb-3 text-center mx-auto">
-                                                    <label for="deleteEmail"
-                                                           class="form-label font-weight-bold">Email</label>
-                                                    <input type="text" class="text-center mx-auto form-control col-6"
-                                                           id="deleteEmail" name="email" value="" readonly/>
+                                                    <label class="form-label font-weight-bold"
+                                                           for="deleteEmail">Email</label>
+                                                    <input class="text-center mx-auto form-control col-6" id="deleteEmail"
+                                                           name="email" readonly type="text" value=""/>
                                                 </div>
                                                 <div class="mb-3 text-center">
-                                                    <label for="deleteUserRole"
-                                                           class="d-block  font-weight-bold">Role:</label>
+                                                    <label class="d-block  font-weight-bold"
+                                                           for="deleteUserRole">Role:</label>
                                                     <label class="d-inline-block mx-3">
-                                                        <input type="checkbox" class="form-control" id="deleteUserRole"
+                                                        <input class="form-control" disabled id="deleteUserRole"
                                                                name="roles"
-                                                               value="1" disabled> Пользователь
+                                                               type="checkbox" value="1"> Пользователь
                                                     </label>
                                                     <label class="d-inline-block mx-3">
-                                                        <input type="checkbox" class="form-control" id="deleteAdminRole"
-                                                               name="roles" value="2" disabled> Администратор
+                                                        <input class="form-control" disabled id="deleteAdminRole"
+                                                               name="roles" type="checkbox" value="2"> Администратор
                                                     </label>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">
+                                                    <button class="btn btn-secondary" data-dismiss="modal"
+                                                            type="button">
                                                         Close
                                                     </button>
-                                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                                    <input class="btn btn-danger" type="submit" value="Delete">
                                                 </div>
                                             </div>
                                         </div>
@@ -271,60 +271,60 @@
                         </div>
 
                         <!--                        Создание юзера-->
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div aria-labelledby="profile-tab" class="tab-pane fade" id="profile" role="tabpanel">
                             <table class="table table-bordered">
                                 <thead style="background-color: #f7f7f7">
                                 <tr>
-                                    <th colspan="7" class="text-left">Add new user</th>
+                                    <th class="text-left" colspan="7">Add new user</th>
                                 </tr>
                                 </thead>
                                 <tr style="background-color: white">
                                     <td>
-                                        <form th:method="POST" th:action="@{/admin/users/new}"
-                                              class="col-md-4 justify-content-center mx-auto">
+                                        <form class="col-md-4 justify-content-center mx-auto" th:action="@{/admin/users/new}"
+                                              th:method="POST">
 
                                             <div class="mb-3 text-center">
-                                                <label for="newID" class="form-label font-weight-bold">ID</label>
-                                                <input type="text" class="form-control" id="newID"
+                                                <label class="form-label font-weight-bold" for="newID">ID</label>
+                                                <input class="form-control" disabled id="newID"
                                                        th:value="${nextUserId}"
-                                                       disabled>
+                                                       type="text">
                                             </div>
 
                                             <div class="mb-3 text-center">
-                                                <label for="newUsername"
-                                                       class="form-label font-weight-bold">Username</label>
-                                                <input type="text" class="form-control" id="newUsername" name="username"
-                                                       required minlength="5">
+                                                <label class="form-label font-weight-bold"
+                                                       for="newUsername">Username</label>
+                                                <input class="form-control" id="newUsername" minlength="5" name="username"
+                                                       required type="text">
                                             </div>
                                             <div class="mb-3 text-center">
-                                                <label for="newName" class="form-label font-weight-bold">Name</label>
-                                                <input type="text" class="form-control" id="newName" name="name"
-                                                       required minlength="5">
+                                                <label class="form-label font-weight-bold" for="newName">Name</label>
+                                                <input class="form-control" id="newName" minlength="5" name="name"
+                                                       required type="text">
                                             </div>
                                             <div class="mb-3 text-center">
-                                                <label for="newAge" class="form-label font-weight-bold">Age</label>
-                                                <input type="number" class="form-control" id="newAge" name="age"
-                                                       required minlength="1">
+                                                <label class="form-label font-weight-bold" for="newAge">Age</label>
+                                                <input class="form-control" id="newAge" minlength="1" name="age"
+                                                       required type="number">
                                             </div>
                                             <div class="mb-3 text-center">
-                                                <label for="newPassword"
-                                                       class="form-label font-weight-bold">Password</label>
-                                                <input type="password" class="form-control" id="newPassword"
-                                                       name="password" required minlength="5">
+                                                <label class="form-label font-weight-bold"
+                                                       for="newPassword">Password</label>
+                                                <input class="form-control" id="newPassword" minlength="5"
+                                                       name="password" required type="password">
                                             </div>
                                             <div class="mb-3 text-center">
-                                                <label for="newEmail" class="form-label font-weight-bold">Email</label>
-                                                <input type="email" class="form-control" id="newEmail" name="email"
-                                                       required minlength="5">
+                                                <label class="form-label font-weight-bold" for="newEmail">Email</label>
+                                                <input class="form-control" id="newEmail" minlength="5" name="email"
+                                                       required type="email">
                                             </div>
                                             <div class="mb-3 text-center">
-                                                <label><input type="checkbox" value="1" name="roles">
+                                                <label><input name="roles" type="checkbox" value="1">
                                                     Пользователь</label><br>
-                                                <label><input type="checkbox" value="2" name="roles">
+                                                <label><input name="roles" type="checkbox" value="2">
                                                     Администратор</label>
                                             </div>
                                             <div class="mb-3 text-center mx-auto">
-                                                <button type="submit" class="btn btn-success">Add new user</button>
+                                                <button class="btn btn-success" type="submit">Add new user</button>
                                             </div>
 
                                         </form>
@@ -335,13 +335,13 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="user-tab" role="tabpanel" aria-labelledby="v-pills-profile-tab"
+            <div aria-labelledby="v-pills-profile-tab" class="tab-pane fade" id="user-tab" role="tabpanel"
                  style="margin-top: 15px">
                 <h1>User information-page</h1>
                 <table class="table table-striped">
                     <thead style="background-color: #f7f7f7">
                     <tr>
-                        <th colspan="8" class="text-left" style="background-color: #f2f2f2">About user</th>
+                        <th class="text-left" colspan="8" style="background-color: #f2f2f2">About user</th>
                     </tr>
                     <tr>
                         <th scope="col">ID</th>
